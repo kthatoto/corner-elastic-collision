@@ -30,6 +30,30 @@ export const moveCircle = (
     velocityChange.y = -1;
   }
 
+  RECTANGLES.forEach((rect: Rectangle) => {
+    const beforeHorizontalCollision =
+      rect.x <= position.x + CIRCLE_RADIUS &&
+      position.x - CIRCLE_RADIUS <= rect.x + rect.width;
+    const beforeVerticalCollision =
+      rect.y <= position.y + CIRCLE_RADIUS &&
+      position.y - CIRCLE_RADIUS <= rect.y + rect.height;
+    const afterHorizontalCollision =
+      rect.x <= newPosition.x + CIRCLE_RADIUS &&
+      newPosition.x - CIRCLE_RADIUS <= rect.x + rect.width;
+    const afterVerticalCollision =
+      rect.y <= newPosition.y + CIRCLE_RADIUS &&
+      newPosition.y - CIRCLE_RADIUS <= rect.y + rect.height;
+
+    if (afterHorizontalCollision && afterVerticalCollision) {
+      if (beforeHorizontalCollision) {
+        velocityChange.y = -1;
+      }
+      if (beforeVerticalCollision) {
+        velocityChange.x = -1;
+      }
+    }
+  });
+
   setVelocity({ x: velocity.x * velocityChange.x, y: velocity.y * velocityChange.y });
   setPosition(newPosition);
   return;

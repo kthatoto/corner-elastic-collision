@@ -9,10 +9,14 @@ const App = () => {
   const [position, setPosition] = useState({
     x: CIRCLE_RADIUS + Math.random() * 50,
     y: CIRCLE_RADIUS + Math.random() * 50,
+    // x: CIRCLE_RADIUS + 80,
+    // y: CIRCLE_RADIUS + 80,
   });
   const [velocity, setVelocity] = useState({
     x: Math.random() * 5,
     y: Math.random() * 5,
+    // x: 2,
+    // y: 2,
   });
 
   useInterval(
@@ -31,14 +35,14 @@ const App = () => {
           left: position.x - CIRCLE_RADIUS,
         }}
       />
-      {RECTANGLES.map((rectangle) => (
+      {RECTANGLES.map((rect) => (
         <div
           className="rectangle"
           style={{
-            top: rectangle.y,
-            left: rectangle.x,
-            width: rectangle.width,
-            height: rectangle.height,
+            top: rect.y,
+            left: rect.x,
+            width: rect.width,
+            height: rect.height,
           }}
         />
       ))}

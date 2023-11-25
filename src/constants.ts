@@ -1,7 +1,7 @@
 export const CIRCLE_RADIUS = 50;
 export const RECTANGLES = [
   {
-    x: 400,
+    x: 100,
     y: 200,
     width: 100,
     height: 50,
