@@ -11,7 +11,6 @@ export const moveCircle = (
   setPosition: (newPosition: Vector) => void,
   velocity: Vector,
   setVelocity: (newVelocity: Vector) => void,
-  log?: boolean,
 ) => {
   const newPos = { x: pos.x + velocity.x, y: pos.y + velocity.y };
   const newVelocity = { x: velocity.x, y: velocity.y };

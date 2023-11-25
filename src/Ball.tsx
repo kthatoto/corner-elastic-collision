@@ -3,7 +3,7 @@ import { useInterval } from "./useInterval";
 import { moveCircle } from "./moveCircle";
 import { CIRCLE_RADIUS } from "./constants";
 
-const Ball = (params: { log?: boolean }) => {
+const Ball = () => {
   const [position, setPosition] = useState({
     x: CIRCLE_RADIUS + Math.random() * 10,
     y: CIRCLE_RADIUS + Math.random() * 10,
@@ -14,7 +14,7 @@ const Ball = (params: { log?: boolean }) => {
   });
 
   useInterval(
-    () => moveCircle(position, setPosition, velocity, setVelocity, params.log),
+    () => moveCircle(position, setPosition, velocity, setVelocity),
     10
   );
 
