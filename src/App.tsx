@@ -2,7 +2,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="app">
       <h1>あああ</h1>
     </div>
   );
