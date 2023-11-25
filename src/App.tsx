@@ -1,23 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import './App.css';
+import useInterval from "./useInterval";
 
 const CIRCLE_RADIUS = 50;
 
 const App = () => {
   const [position, setPosition] = useState({ x: CIRCLE_RADIUS, y: CIRCLE_RADIUS });
-  const [intervalId, setIntervalId] = useState(0);
 
-  useEffect(() => {
-    const id = window.setInterval(() => {
-    }, 10);
-    setIntervalId(id);
-
-    return () => {
-      window.clearInterval(intervalId);
-    }
-  }, []);
-
+  useInterval(
+    () => {
+      setPosition({ x: position.x + 1, y: position.y + 1 });
+    },
+    10
+  );
   return (
     <div className="app">
       <div
