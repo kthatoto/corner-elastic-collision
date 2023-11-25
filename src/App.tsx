@@ -5,7 +5,7 @@ import { RECTANGLES } from "./constants";
 const App = () => {
   return (
     <div className="app">
-      {[...Array(5)].map((_, i) => <Ball key={i} />)}
+      {[...Array(1)].map((_, i) => <Ball key={i} />)}
       {RECTANGLES.map((rect) => (
         <div
           className="rectangle"

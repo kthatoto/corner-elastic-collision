@@ -1,20 +1,10 @@
 import { CIRCLE_RADIUS, RECTANGLES } from "./constants";
+import { distance, reflectVectorAcrossLine } from "./mathLogics";
 
 interface Vector {
   x: number;
   y: number;
 }
-
-interface Rectangle {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-const distance = (x1: number, y1: number, x2: number, y2: number) => {
-  return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
-};
 
 export const moveCircle = (
   pos: Vector,
@@ -36,34 +26,14 @@ export const moveCircle = (
     newVelocity.y = velocity.y * -1;
   }
 
-  RECTANGLES.forEach((rect: Rectangle) => {
+  RECTANGLES.forEach((rect) => {
     const overlaps = {
       // 円の中心が矩形と重なっているか
-      // center: {
-      //   before: {
-      //     horizontal: rect.x <= pos.x && pos.x <= rect.x + rect.width,
-      //     vertical: rect.y <= pos.y && pos.y <= rect.y + rect.height,
-      //   },
-      //   after: {
-      //     horizontal: rect.x <= newPos.x && newPos.x <= rect.x + rect.width,
-      //     vertical: rect.y <= newPos.y && newPos.y <= rect.y + rect.height,
-      //   },
-      // },
       center: {
         horizontal: rect.x <= newPos.x && newPos.x <= rect.x + rect.width,
         vertical: rect.y <= newPos.y && newPos.y <= rect.y + rect.height,
       },
       // 円を囲む矩形が矩形と重なっているか
-      // rect: {
-      //   before: {
-      //     horizontal: rect.x <= pos.x + CIRCLE_RADIUS && pos.x - CIRCLE_RADIUS <= rect.x + rect.width,
-      //     vertical: rect.y <= pos.y + CIRCLE_RADIUS && pos.y - CIRCLE_RADIUS <= rect.y + rect.height,
-      //   },
-      //   after: {
-      //     horizontal: rect.x <= newPos.x + CIRCLE_RADIUS && newPos.x - CIRCLE_RADIUS <= rect.x + rect.width,
-      //     vertical: rect.y <= newPos.y + CIRCLE_RADIUS && newPos.y - CIRCLE_RADIUS <= rect.y + rect.height,
-      //   },
-      // },
       rect: {
         horizontal: rect.x <= newPos.x + CIRCLE_RADIUS && newPos.x - CIRCLE_RADIUS <= rect.x + rect.width,
         vertical: rect.y <= newPos.y + CIRCLE_RADIUS && newPos.y - CIRCLE_RADIUS <= rect.y + rect.height,
@@ -83,31 +53,37 @@ export const moveCircle = (
       overlaps.rect.vertical
     ) {
       // 角に衝突
-
       const leftSide = newPos.x <= rect.x;
       const rightSide = rect.x + rect.width <= newPos.x;
       const topSide = newPos.y <= rect.y;
       const bottomSide = rect.y + rect.height <= newPos.y;
+
+      const cornerPoint = { x: -1, y: -1 };
       if (leftSide) {
         if (topSide) {
-          if (distance(newPos.x, newPos.y, rect.x, rect.y) <= CIRCLE_RADIUS) {
-            // 衝突
-          }
+          cornerPoint.x = rect.x;
+          cornerPoint.y = rect.y;
         } else if (bottomSide) {
-          if (distance(newPos.x, newPos.y, rect.x, rect.y + rect.height) <= CIRCLE_RADIUS) {
-            // 衝突
-          }
+          cornerPoint.x = rect.x;
+          cornerPoint.y = rect.y + rect.height;
         }
       } else if (rightSide) {
         if (topSide) {
-          if (distance(newPos.x, newPos.y, rect.x + rect.width, rect.y) <= CIRCLE_RADIUS) {
-            // 衝突
-          }
+          cornerPoint.x = rect.x + rect.width;
+          cornerPoint.y = rect.y;
         } else if (bottomSide) {
-          if (distance(newPos.x, newPos.y, rect.x + rect.width, rect.y + rect.height) <= CIRCLE_RADIUS) {
-            // 衝突
-          }
+          cornerPoint.x = rect.x + rect.width;
+          cornerPoint.y = rect.y + rect.height;
         }
+      }
+
+      if (distance(newPos.x, newPos.y, cornerPoint.x, cornerPoint.y) <= CIRCLE_RADIUS) {
+        const convertedVector = reflectVectorAcrossLine(
+          velocity,
+          { x: cornerPoint.x - newPos.x, y: cornerPoint.y - newPos.y },
+        );
+        newVelocity.x = convertedVector.x * -1;
+        newVelocity.y = convertedVector.y * -1;
       }
     }
   });

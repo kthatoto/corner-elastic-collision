@@ -5,12 +5,16 @@ import { CIRCLE_RADIUS } from "./constants";
 
 const Ball = (params: { log?: boolean }) => {
   const [position, setPosition] = useState({
-    x: CIRCLE_RADIUS + Math.random() * 50,
-    y: CIRCLE_RADIUS + Math.random() * 50,
+    // x: CIRCLE_RADIUS + Math.random() * 50,
+    // y: CIRCLE_RADIUS + Math.random() * 50,
+    x: 100,
+    y: 80,
   });
   const [velocity, setVelocity] = useState({
-    x: Math.random() * 5,
-    y: Math.random() * 5,
+    // x: Math.random() * 5,
+    // y: Math.random() * 5,
+    x: 1,
+    y: 0,
   });
 
   useInterval(
