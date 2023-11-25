@@ -1,19 +1,19 @@
 import { useState } from "react";
 
 import './App.css';
-import useInterval from "./useInterval";
-
-const CIRCLE_RADIUS = 50;
+import { useInterval } from "./useInterval";
+import { moveCircle } from "./moveCircle";
+import { CIRCLE_RADIUS } from "./constants";
 
 const App = () => {
   const [position, setPosition] = useState({ x: CIRCLE_RADIUS, y: CIRCLE_RADIUS });
+  const [velocity, setVelocity] = useState({ x: 3, y: 5 });
 
   useInterval(
-    () => {
-      setPosition({ x: position.x + 1, y: position.y + 1 });
-    },
+    () => moveCircle(position, setPosition, velocity, setVelocity),
     10
   );
+
   return (
     <div className="app">
       <div
