@@ -8,6 +8,8 @@ const App = () => {
       <Ball />
       <Ball />
       <Ball />
+      <Ball />
+      <Ball />
       {RECTANGLES.map((rect) => (
         <div
           className="rectangle"

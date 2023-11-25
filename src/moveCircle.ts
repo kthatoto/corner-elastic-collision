@@ -17,6 +17,7 @@ export const moveCircle = (
   setPosition: (newPosition: Vector) => void,
   velocity: Vector,
   setVelocity: (newVelocity: Vector) => void,
+  log?: boolean,
 ) => {
   const newPosition = { x: position.x + velocity.x, y: position.y + velocity.y };
 
@@ -47,14 +48,18 @@ export const moveCircle = (
     if (afterHorizontalCollision && afterVerticalCollision) {
       if (beforeHorizontalCollision) {
         velocityChange.y = -1;
-      }
-      if (beforeVerticalCollision) {
+      } else if (beforeVerticalCollision) {
         velocityChange.x = -1;
+      } else {
+        velocityChange.x = -1;
+        velocityChange.y = -1;
       }
     }
   });
 
-  setVelocity({ x: velocity.x * velocityChange.x, y: velocity.y * velocityChange.y });
+  const newVelocity = { x: velocity.x * velocityChange.x, y: velocity.y * velocityChange.y };
+
   setPosition(newPosition);
+  setVelocity(newVelocity);
   return;
 };
