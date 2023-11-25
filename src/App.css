@@ -10,3 +10,8 @@
   border-radius: 50%;
   border: 3px solid red;
 }
+
+.rectangle {
+  position: absolute;
+  background-color: gray;
+}

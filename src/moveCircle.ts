@@ -1,8 +1,15 @@
-import { CIRCLE_RADIUS } from "./constants";
+import { CIRCLE_RADIUS, RECTANGLES } from "./constants";
 
 interface Vector {
   x: number;
   y: number;
+}
+
+interface Rectangle {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export const moveCircle = (

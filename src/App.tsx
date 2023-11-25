@@ -3,11 +3,17 @@ import { useState } from "react";
 import './App.css';
 import { useInterval } from "./useInterval";
 import { moveCircle } from "./moveCircle";
-import { CIRCLE_RADIUS } from "./constants";
+import { CIRCLE_RADIUS, RECTANGLES } from "./constants";
 
 const App = () => {
-  const [position, setPosition] = useState({ x: CIRCLE_RADIUS, y: CIRCLE_RADIUS });
-  const [velocity, setVelocity] = useState({ x: 3, y: 5 });
+  const [position, setPosition] = useState({
+    x: CIRCLE_RADIUS + Math.random() * 50,
+    y: CIRCLE_RADIUS + Math.random() * 50,
+  });
+  const [velocity, setVelocity] = useState({
+    x: Math.random() * 5,
+    y: Math.random() * 5,
+  });
 
   useInterval(
     () => moveCircle(position, setPosition, velocity, setVelocity),
@@ -25,6 +31,17 @@ const App = () => {
           left: position.x - CIRCLE_RADIUS,
         }}
       />
+      {RECTANGLES.map((rectangle) => (
+        <div
+          className="rectangle"
+          style={{
+            top: rectangle.y,
+            left: rectangle.x,
+            width: rectangle.width,
+            height: rectangle.height,
+          }}
+        />
+      ))}
     </div>
   );
 }
