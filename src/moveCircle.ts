@@ -15,14 +15,15 @@ export const moveCircle = (
 
   const height = document.body.clientHeight;
   const width = document.body.clientWidth;
-
+  const velocityChange = { x: 1, y: 1 };
   if (newPosition.x - CIRCLE_RADIUS <= 0 || width <= newPosition.x + CIRCLE_RADIUS) {
-    velocity.x = velocity.x * -1;
+    velocityChange.x = -1;
   }
   if (newPosition.y - CIRCLE_RADIUS <= 0 || height <= newPosition.y + CIRCLE_RADIUS) {
-    velocity.y = velocity.y * -1;
+    velocityChange.y = -1;
   }
 
+  setVelocity({ x: velocity.x * velocityChange.x, y: velocity.y * velocityChange.y });
   setPosition(newPosition);
   return;
 };
