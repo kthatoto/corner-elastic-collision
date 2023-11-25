@@ -5,17 +5,21 @@ import { CIRCLE_RADIUS } from "./constants";
 
 const Ball = () => {
   const [position, setPosition] = useState({
-    x: CIRCLE_RADIUS + Math.random() * 10,
-    y: CIRCLE_RADIUS + Math.random() * 10,
+    // x: CIRCLE_RADIUS + Math.random() * 10,
+    // y: CIRCLE_RADIUS + Math.random() * 10,
+    x: 50,
+    y: 120,
   });
   const [velocity, setVelocity] = useState({
-    x: Math.random() * 3,
-    y: Math.random() * 3,
+    // x: Math.random() * 3,
+    // y: Math.random() * 3,
+    x: 2,
+    y: 0,
   });
 
   useInterval(
     () => moveCircle(position, setPosition, velocity, setVelocity),
-    10
+    50
   );
 
   return (

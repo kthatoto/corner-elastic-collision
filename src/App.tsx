@@ -6,8 +6,9 @@ const App = () => {
   return (
     <div className="app">
       {[...Array(1)].map((_, i) => <Ball key={i} />)}
-      {RECTANGLES.map((rect) => (
+      {RECTANGLES.map((rect, i) => (
         <div
+          key={i}
           className="rectangle"
           style={{
             top: rect.y,
