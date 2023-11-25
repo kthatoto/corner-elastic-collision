@@ -12,6 +12,10 @@ interface Rectangle {
   height: number;
 }
 
+const distance = (x1: number, y1: number, x2: number, y2: number) => {
+  return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+};
+
 export const moveCircle = (
   pos: Vector,
   setPosition: (newPosition: Vector) => void,
@@ -66,24 +70,45 @@ export const moveCircle = (
       },
     };
 
-    // 上辺or下辺に衝突
     if (overlaps.center.horizontal && overlaps.rect.vertical) {
+      // 上辺or下辺に衝突
       newVelocity.y = velocity.y * -1;
-    }
-    // 左辺or右辺に衝突
-    if (overlaps.center.vertical && overlaps.rect.horizontal) {
+    } else if (overlaps.center.vertical && overlaps.rect.horizontal) {
+      // 左辺or右辺に衝突
       newVelocity.x = velocity.x * -1;
-    }
-    // 角に衝突
-    if (
+    } else if (
       !overlaps.center.horizontal &&
       !overlaps.center.vertical &&
       overlaps.rect.horizontal &&
       overlaps.rect.vertical
     ) {
-      newVelocity.y = velocity.y * -1;
-      newVelocity.x = velocity.x * -1;
-      // TODO
+      // 角に衝突
+
+      const leftSide = newPos.x <= rect.x;
+      const rightSide = rect.x + rect.width <= newPos.x;
+      const topSide = newPos.y <= rect.y;
+      const bottomSide = rect.y + rect.height <= newPos.y;
+      if (leftSide) {
+        if (topSide) {
+          if (distance(newPos.x, newPos.y, rect.x, rect.y) <= CIRCLE_RADIUS) {
+            // 衝突
+          }
+        } else if (bottomSide) {
+          if (distance(newPos.x, newPos.y, rect.x, rect.y + rect.height) <= CIRCLE_RADIUS) {
+            // 衝突
+          }
+        }
+      } else if (rightSide) {
+        if (topSide) {
+          if (distance(newPos.x, newPos.y, rect.x + rect.width, rect.y) <= CIRCLE_RADIUS) {
+            // 衝突
+          }
+        } else if (bottomSide) {
+          if (distance(newPos.x, newPos.y, rect.x + rect.width, rect.y + rect.height) <= CIRCLE_RADIUS) {
+            // 衝突
+          }
+        }
+      }
     }
   });
 
