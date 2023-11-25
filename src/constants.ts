@@ -2,14 +2,14 @@ export const CIRCLE_RADIUS = 50;
 export const RECTANGLES = [
   {
     x: 200,
-    y: 200,
-    width: 100,
-    height: 20,
+    y: 120,
+    width: 80,
+    height: 80,
   },
   {
-    x: 800,
-    y: 200,
-    width: 100,
-    height: 50,
+    x: 400,
+    y: 120,
+    width: 80,
+    height: 80,
   },
 ];
