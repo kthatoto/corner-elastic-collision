@@ -17,9 +17,11 @@ const Ball = () => {
     y: 0,
   });
 
+  const [count, setCount] = useState(0);
+
   useInterval(
-    () => moveCircle(position, setPosition, velocity, setVelocity),
-    500
+    () => moveCircle(position, setPosition, velocity, setVelocity, { count, setCount }),
+    10
   );
 
   return (

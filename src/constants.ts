@@ -1,4 +1,4 @@
-export const CIRCLE_RADIUS = 50;
+export const CIRCLE_RADIUS = 20;
 export const RECTANGLES = [
   {
     x: 150,

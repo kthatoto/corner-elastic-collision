@@ -11,6 +11,7 @@ export const moveCircle = (
   setPosition: (newPosition: Vector) => void,
   velocity: Vector,
   setVelocity: (newVelocity: Vector) => void,
+  option?: any,
 ) => {
   const newPos = { x: pos.x + velocity.x, y: pos.y + velocity.y };
   const newVelocity = { x: velocity.x, y: velocity.y };
@@ -39,12 +40,28 @@ export const moveCircle = (
       },
     };
 
+    const leftSide = newPos.x <= rect.x;
+    const rightSide = rect.x + rect.width <= newPos.x;
+    const topSide = newPos.y <= rect.y;
+    const bottomSide = rect.y + rect.height <= newPos.y;
+
     if (overlaps.center.horizontal && overlaps.rect.vertical) {
-      // 上辺or下辺に衝突
+      if (topSide) {
+        // 上辺に衝突
+        newVelocity.y = Math.abs(velocity.y) * -1;
+      } else if (bottomSide) {
+        // 下辺に衝突
+        newVelocity.y = Math.abs(velocity.y);
+      }
       newVelocity.y = velocity.y * -1;
     } else if (overlaps.center.vertical && overlaps.rect.horizontal) {
-      // 左辺or右辺に衝突
-      newVelocity.x = velocity.x * -1;
+      if (leftSide) {
+        // 左辺に衝突
+        newVelocity.x = Math.abs(velocity.x) * -1;
+      } else if (rightSide) {
+        // 右辺に衝突
+        newVelocity.x = Math.abs(velocity.x);
+      }
     } else if (
       !overlaps.center.horizontal &&
       !overlaps.center.vertical &&
@@ -52,11 +69,6 @@ export const moveCircle = (
       overlaps.rect.vertical
     ) {
       // 角に衝突
-      const leftSide = newPos.x <= rect.x;
-      const rightSide = rect.x + rect.width <= newPos.x;
-      const topSide = newPos.y <= rect.y;
-      const bottomSide = rect.y + rect.height <= newPos.y;
-
       const cornerPoint = { x: -1, y: -1 };
       if (leftSide) {
         if (topSide) {
