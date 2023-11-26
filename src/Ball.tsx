@@ -13,13 +13,13 @@ const Ball = () => {
   const [velocity, setVelocity] = useState({
     // x: Math.random() * 3,
     // y: Math.random() * 3,
-    x: 2,
+    x: 4,
     y: 0,
   });
 
   useInterval(
     () => moveCircle(position, setPosition, velocity, setVelocity),
-    50
+    500
   );
 
   return (
